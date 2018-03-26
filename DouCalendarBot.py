@@ -62,7 +62,7 @@ def tg_message(date):
         for j in result:
             for k in j['date']:
                 if k == date:
-                    message = message + "⭐ " + "<b>" + j['title'] + "</b>" +
+                    message = message + "⭐ " + "<b>" + j['title'] + "</b>" + \
                     " (" + j['price'] + ")" + "\n"
     return (message)
 
@@ -83,7 +83,7 @@ def handle_text(message):
     p = re.match(r'\d+', message.text)
     try:
         bot.send_message(chat_id=message.chat.id, text='Searching events...')
-        bot.send_message(parse_mode='HTML', 
+        bot.send_message(parse_mode='HTML', \
             chat_id=message.chat.id, text=tg_message(p.group(0)))
     except:
         bot.send_message(message.chat.id, "Введите корректную дату")
