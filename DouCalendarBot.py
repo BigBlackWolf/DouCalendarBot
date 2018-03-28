@@ -2,10 +2,12 @@ import re
 import sqlite3
 import os
 import urllib.request
+
 import telebot
 from bs4 import BeautifulSoup
 from flask import Flask, request
 from apscheduler.schedulers.blocking import BlockingScheduler
+
 import config
 
 server = Flask(__name__)
@@ -32,29 +34,7 @@ def paggination(soup):
     return(len(a)-2)
 
 #Function to parse and update information in base
-def parse(soup):
-    projects = []
-    block = soup.find('div', class_="col50 m-cola")
-    for cluster in block.find_all('article', class_="b-postcard"):
-        title = cluster.h2.text
-        when_and_where = cluster.find('div', class_="when-and-where")
-        date_and_price = when_and_where.find_all('span')
-        date = date_and_price[0].text
-        date = re.findall(r'\d+', date)
-        try:
-            price = date_and_price[1].text
-        except:
-            price = "Нет данных"
-        projects.append({
-            'title': cleanup(title),
-            'price': cleanup(price),
-            'date': date
-        })
-    return (projects)
-
-
-def tg_message(date):
-    message = ""
+def parse():
     soup = soupit(BASE_URL)
     pages = paggination(soup)
     connection = sqlite3.connect('events.db')
@@ -145,6 +125,7 @@ def web_hook():
 
 
 server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
 
 #Every day updates to Database
 schedule = BlockingScheduler()
