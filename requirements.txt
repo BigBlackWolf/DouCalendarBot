@@ -1,5 +1,7 @@
+APScheduler==3.5.1
 beautifulsoup4==4.6.0
 bs4==0.0.1
+Flask==0.12.2
 pyTelegramBotAPI==3.6.1
 requests==2.7.0
 six==1.11.0
