@@ -21,7 +21,7 @@ token = "putyourtokenhere"
 url = "https://yourappname.herokuapp.com/"
 ```
 
-And you have to create SQLite database with 2 tables:
+And you have to create SQLite database named **events.db** with 2 tables:
 ```sql
 CREATE TABLE calendar (
 title VARCHAR(300) UNIQUE, 
